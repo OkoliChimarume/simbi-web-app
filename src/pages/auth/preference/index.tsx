@@ -26,9 +26,6 @@ export default function Preference() {
 //     },
 //   ];
 
-  function valuetext(value: number) {
-    return `${value}°C`;
-  }
 
   return (
     <main className="bg-[fdfdff] min-h-screen flex flex-col items-center justify-center">
