@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as yup from "yup";
 import { Alert, Button, CircularProgress } from "@mui/material";
 import { toast } from "sonner";
@@ -19,15 +19,27 @@ export default function Login() {
   const navigate = useNavigate();
 
   async function handleSubmit(values: { email: string; password: string }) {
-    try {
-      const res = await useLogin(values);
-      navigate("/");
-    } catch (error: any) {
-      toast.error(error.message || "An error occurred during login.");
-    } finally {
-      null;
-    }
+    localStorage.setItem("user_email", JSON.stringify(values.email));
+    navigate("/");
   }
+  // async function handleSubmit(
+  //   values: { email: string; password: string },
+  //   e: React.FormEvent
+  // ) {
+  //   e.preventDefault();
+  //   try {
+  //     const res = await useLogin(values);
+  //     navigate("/");
+  //   } catch (error: any) {
+  //     toast.error(error.message || "An error occurred during login.");
+  //   } finally {
+  //     null;
+  //   }
+  // }
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   mutate(form); // sends {name, email}
+  // };
 
   return (
     <div className="w-full flex">
@@ -39,22 +51,38 @@ export default function Login() {
         <Formik
           initialValues={{ email: "", password: "" }}
           validationSchema={validationSchema}
-          onSubmit={handleSubmit}
+          onSubmit={(values) => handleSubmit(values)}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting, dirty}) => (
             <Form className="w-[463px] flex flex-col space-y-6">
-              <Field
-                name="email"
-                type="email"
-                placeholder="Your Email"
-                as={Input}
-              />
-              <Field
-                name="password"
-                type="password"
-                placeholder="Password"
-                as={Input}
-              />
+              <div className="w-full flex flex-col">
+                <Field
+                  name="email"
+                  type="email"
+                  placeholder="Your Email"
+                  as={Input}
+                />
+                <ErrorMessage
+                  name="email"
+                  render={(msg) => (
+                    <div className="text-sm text-error-500">{msg}</div>
+                  )}
+                />
+              </div>
+              <div className="w-full flex flex-col">
+                <Field
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                  as={Input}
+                />
+                <ErrorMessage
+                  name="password"
+                  render={(msg) => (
+                    <div className="text-sm text-error-500">{msg}</div>
+                  )}
+                />
+              </div>
 
               <div className="flex justify-end">
                 <div className="gap-1">
@@ -73,7 +101,7 @@ export default function Login() {
                 className="w-full !bg-brand-500 !text-[#FDFDFF] !py-[10px] text-base font-medium rounded-lg transition-all hover:scale-95 flex items-center justify-center gap-2 disabled:opacity-60"
                 type="submit"
                 // loading={isSubmitting}
-                disabled={isSubmitting}
+                disabled={isSubmitting || !dirty}
               >
                 {isSubmitting ? (
                   <>

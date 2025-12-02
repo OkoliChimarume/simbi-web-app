@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "../pages/auth/login";
 import AuthLayout from "../pages/auth/layout";
 import SignUp from "../pages/auth/signup";
+import Preference from "../pages/auth/preference";
 const Home = lazy(() => import("../pages/home"));
 
 export default function index() {
@@ -15,6 +16,7 @@ export default function index() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
         </Route>
+        <Route path="/preference" element={<Preference />} />
 
         {/* <Route
           element={
