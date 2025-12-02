@@ -1,4 +1,4 @@
-import { lazy } from "react";
+// import { lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import { AppProvider } from "context";
 // import NotFound from "components/NotFound";
@@ -6,7 +6,7 @@ import Login from "../pages/auth/login";
 import AuthLayout from "../pages/auth/layout";
 import SignUp from "../pages/auth/signup";
 import Preference from "../pages/auth/preference";
-const Home = lazy(() => import("../pages/home"));
+// const Home = lazy(() => import("../pages/home"));
 
 export default function index() {
   return (

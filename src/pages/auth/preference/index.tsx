@@ -1,5 +1,5 @@
-import { Box, FormControlLabel, Radio, Slider } from "@mui/material";
-import React, { useState } from "react";
+import { FormControlLabel, Radio } from "@mui/material";
+import { useState } from "react";
 import { RadioButtonUncheckedOutlined } from "@mui/icons-material";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,17 @@ export default function Preference() {
     <SectionThree key="3" />,
   ];
 
-  
+//   const marks = [
+//     {
+//       value: 10,
+//     },
+//     {
+//       value: 47,
+//     },
+//     {
+//       value: 100,
+//     },
+//   ];
 
   function valuetext(value: number) {
     return `${value}°C`;
@@ -22,7 +32,15 @@ export default function Preference() {
 
   return (
     <main className="bg-[fdfdff] min-h-screen flex flex-col items-center justify-center">
-      
+      {/* <Box sx={{ width: 300 }}>
+        <Slider
+          aria-label="Temperature"
+          defaultValue={30}
+          getAriaValueText={valuetext}
+          color="secondary"
+          marks={marks}
+        />
+      </Box> */}
       <div className="rounded-3xl shadow-[0_19px_86.9px_0_rgba(149,127,255,0.53)] flex my-16 overflow-hidden w-[1075px] bg-[#FDFDFF] h-[80vh] relative">
         <section className="bg-brand-500 z-10 w-[30rem] px-11 py-4 h-full flex place-items-center">
           <h1 className="text-[#FDFDFF] text-3xl font-semibold leading-snug transition-all duration-300 ease-in-out">

@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as yup from "yup";
-import { Alert, Button, CircularProgress } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import { toast } from "sonner";
 import SignUpComponent from "../../../components/layout/index";
 
