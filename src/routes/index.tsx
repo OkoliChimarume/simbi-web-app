@@ -6,6 +6,7 @@ import Login from "../pages/auth/login";
 import AuthLayout from "../pages/auth/layout";
 import SignUp from "../pages/auth/signup";
 import Preference from "../pages/auth/preference";
+import Dashboard from "../pages/Dashboard";
 // const Home = lazy(() => import("../pages/home"));
 
 export default function index() {
@@ -17,6 +18,7 @@ export default function index() {
           <Route path="/signup" element={<SignUp />} />
         </Route>
         <Route path="/preference" element={<Preference />} />
+        <Route path="/dashboard" element={<Dashboard />} />
 
         {/* <Route
           element={

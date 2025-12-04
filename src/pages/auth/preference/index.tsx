@@ -1,4 +1,4 @@
-import { FormControlLabel, Radio } from "@mui/material";
+import { Box, FormControlLabel, Radio, Slider } from "@mui/material";
 import { useState } from "react";
 import { RadioButtonUncheckedOutlined } from "@mui/icons-material";
 import { toast } from "sonner";
@@ -14,33 +14,94 @@ export default function Preference() {
     <SectionThree key="3" />,
   ];
 
-//   const marks = [
-//     {
-//       value: 10,
-//     },
-//     {
-//       value: 47,
-//     },
-//     {
-//       value: 100,
-//     },
-//   ];
+  const marks = [
+    {
+      value: 0,
+    },
+    {
+      value: 1,
+      label: "2",
+    },
+    {
+      value: 2,
+      label: "3",
+    },
+  ];
 
+  const handleSliderChange = (_event: Event, newValue: number | number[]) => {
+    setCurrentSlide(newValue as number);
+  };
 
+  const CustomThumb = (props: any) => {
+    const { children, ...other } = props;
+    return (
+      <span {...other} style={{ ...other.style }}>
+        <img
+          src="/simbi-loader.png"
+          alt="Simbi"
+          style={{
+            width: "26px",
+            height: "20px",
+            objectFit: "contain",
+            display: "block",
+          }}
+        />
+        {children}
+      </span>
+    );
+  };
   return (
     <main className="bg-[fdfdff] min-h-screen flex flex-col items-center justify-center">
-      {/* <Box sx={{ width: 300 }}>
+      <Box sx={{ width: 300 }}>
         <Slider
-          aria-label="Temperature"
-          defaultValue={30}
-          getAriaValueText={valuetext}
-          color="secondary"
+          aria-label="simbi-preference-slider"
+          value={currentSlide}
+          onChange={handleSliderChange}
+          step={1}
           marks={marks}
+          min={0}
+          max={2}
+          slots={{
+            thumb: CustomThumb,
+          }}
+          sx={{
+            height: 12,
+            "& .MuiSlider-thumb": {
+              width: 50,
+              height: 50,
+              backgroundColor: "transparent",
+              border: "none",
+              boxShadow: "none",
+              "&:before": {
+                display: "none",
+              },
+              "&:hover": {
+                boxShadow: "none",
+              },
+              "&.Mui-focusVisible": {
+                boxShadow: "none",
+              },
+              "&.Mui-active": {
+                boxShadow: "none",
+              },
+            },
+            "& .MuiSlider-track": {
+              backgroundColor: "#7A5FFF",
+              height: 12,
+              border: "none",
+            },
+            "& .MuiSlider-rail": {
+              backgroundColor: "#E4DFFF",
+              height: 12,
+              opacity: 1,
+            },
+           
+          }}
         />
-      </Box> */}
+      </Box>
       <div className="rounded-3xl shadow-[0_19px_86.9px_0_rgba(149,127,255,0.53)] flex my-16 overflow-hidden w-[1075px] bg-[#FDFDFF] h-[80vh] relative">
         <section className="bg-brand-500 z-10 w-[30rem] px-11 py-4 h-full flex place-items-center">
-          <h1 className="text-[#FDFDFF] text-3xl font-semibold leading-snug transition-all duration-300 ease-in-out">
+          <h1 className="text-[#FDFDFF] text-3xl font-semibold leading-snug">
             {currentSlide === 0
               ? "Learning Prefrences"
               : currentSlide === 1
