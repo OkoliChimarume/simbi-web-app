@@ -3,10 +3,11 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import { AppProvider } from "context";
 // import NotFound from "components/NotFound";
 import Login from "../pages/auth/login";
-import AuthLayout from "../pages/auth/layout";
+import AuthLayout from "../components/layout/AuthLayout";
 import SignUp from "../pages/auth/signup";
 import Preference from "../pages/auth/preference";
-import Dashboard from "../pages/Dashboard";
+import MainLayout from "../components/layout";
+import Dashboard from "../pages/dashboard";
 // const Home = lazy(() => import("../pages/home"));
 
 export default function index() {
@@ -18,18 +19,10 @@ export default function index() {
           <Route path="/signup" element={<SignUp />} />
         </Route>
         <Route path="/preference" element={<Preference />} />
-        <Route path="/dashboard" element={<Dashboard />} />
 
-        {/* <Route
-          element={
-            <AppProvider>
-              <Main />
-            </AppProvider>
-          }
-        >
-          <Route path="/" element={<Home />} />
-
-        </Route> */}
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<Dashboard />} />
+        </Route>
 
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>

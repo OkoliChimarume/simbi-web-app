@@ -2,7 +2,9 @@ import { useNavigate, Link } from "react-router-dom";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as yup from "yup";
 import { Button, CircularProgress } from "@mui/material";
-import SignUpComponent from "../../../components/layout/index";
+import SignUpComponent from "../../../components/layout/SignUpComponent";
+import { login } from "../../../api/auth";
+import { toast } from "sonner";
 
 const validationSchema = yup.object().shape({
   email: yup
@@ -17,23 +19,18 @@ export default function Login() {
   const navigate = useNavigate();
 
   async function handleSubmit(values: { email: string; password: string }) {
-    localStorage.setItem("user_email", JSON.stringify(values.email));
-    navigate("/");
+    try {
+      const res = await login(values);
+      localStorage.setItem("user", JSON.stringify(res.user));
+      localStorage.setItem("token", res.token);
+      toast.success("Login successful!");
+      navigate("/");
+    } catch (error: any) {
+      toast.error(
+        error.response?.data?.message || "An error occurred during login."
+      );
+    }
   }
-  // async function handleSubmit(
-  //   values: { email: string; password: string },
-  //   e: React.FormEvent
-  // ) {
-  //   e.preventDefault();
-  //   try {
-  //     const res = await useLogin(values);
-  //     navigate("/");
-  //   } catch (error: any) {
-  //     toast.error(error.message || "An error occurred during login.");
-  //   } finally {
-  //     null;
-  //   }
-  // }
   // const handleSubmit = (e: React.FormEvent) => {
   //   e.preventDefault();
   //   mutate(form); // sends {name, email}
@@ -51,7 +48,7 @@ export default function Login() {
           validationSchema={validationSchema}
           onSubmit={(values) => handleSubmit(values)}
         >
-          {({ isSubmitting, dirty}) => (
+          {({ isSubmitting, dirty }) => (
             <Form className="w-[463px] flex flex-col space-y-6">
               <div className="w-full flex flex-col">
                 <Field

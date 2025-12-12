@@ -3,7 +3,8 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as yup from "yup";
 import { Button, CircularProgress } from "@mui/material";
 import { toast } from "sonner";
-import SignUpComponent from "../../../components/layout/index";
+import SignUpComponent from "../../../components/layout/SignUpComponent";
+import { register } from "../../../api/auth";
 
 const validationSchema = yup.object().shape({
   email: yup
@@ -41,9 +42,17 @@ export default function SignUp() {
     last_name: string;
     confirm_password: string;
   }) {
-    localStorage.setItem("user", JSON.stringify(values));
-    navigate("/preference");
-    toast.success("Account created successfully!");
+    try {
+      const res = await register(values);
+      localStorage.setItem("user", JSON.stringify(res.user));
+      localStorage.setItem("token", res.token);
+      toast.success("Account created successfully!");
+      navigate("/");
+    } catch (error: any) {
+      toast.error(
+        error.response?.data?.message || "An error occurred during signup."
+      );
+    }
   }
 
   return (
