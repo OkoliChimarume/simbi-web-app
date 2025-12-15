@@ -8,6 +8,7 @@ import SignUp from "../pages/auth/signup";
 import Preference from "../pages/auth/preference";
 import MainLayout from "../components/layout";
 import Dashboard from "../pages/dashboard";
+import NotFound from "../components/NotFound";
 // const Home = lazy(() => import("../pages/home"));
 
 export default function index() {
@@ -24,7 +25,7 @@ export default function index() {
           <Route path="/" element={<Dashboard />} />
         </Route>
 
-        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
